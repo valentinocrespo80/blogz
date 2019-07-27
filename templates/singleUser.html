@@ -2,26 +2,23 @@
 
 {% block content %}
 
-<h1>Build A Blog</h1>
+<h1>Blog Posts!</h1>
 
-
-    {% if blogs|length == 0 %}
+{% if blogs|length == 0 %}
     <p>No blogs yet</p>
-    {% else %}
-
+{% else %}
 
     <ul style="list-style-type:none;">
         {% for blog in blogs %}
         <a href="/blog?id={{blog.id}}"><li style="font-size:30px;">{{blog.title}}</li></a>  
         <li>{{blog.body}}</li>
-        <p>written by <a href="/blog?user={{blog.owner.id}}"> <li>{{blog.owner.username}}</li></a></p>
-
         <hr />
+        <p>written by<li>{{blog.owner.username}}</li></p>
         {% endfor %}
     </ul>
-    {% endif %}
+{% endif %}
+
+
 
 <hr />
-
-
 {% endblock %}

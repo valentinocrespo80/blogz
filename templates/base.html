@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-
-<nav>
-    <a href="/blog" >Main Blog Page</a> |
-    <a href="/newpost" >Add a Blog Entry</a>
-</nav>
-
 <html>
-    <head>       
-        <title>{{title}}</title>
-        <style>
-            .error {color:red;}
-        </style>
-    </head>
+<head>       
+    <title>{{title}}</title> 
+    <style>
+        .error { 
+            color: red; 
+        }
+    </style>    
+</head>
     
-    <body>
-        
+<body>
+    <nav>
+        <a href="/blog" >Main Blog Page</a> |
+        <a href="/newpost" >Add a Blog Entry</a> |
+        <a href="/logout">log out</a> |
+        <a href="/login">Login</a> |
+        <a href="/">Home</a>
+    </nav>
+    
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
 
-        {% block content %} 
-        
-
-        {%  endblock %}
-    </body>
+    {% block content %}
+    {%  endblock %}
+</body>
 </html>

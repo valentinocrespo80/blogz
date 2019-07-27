@@ -54,8 +54,6 @@ def login():
         if user and user.password == password:
             #remember the user has logged in    
             session['username'] = username
-            #flash message
-            flash('Logged in')
             return redirect("/newpost")
         else:
             flash('User password incorrect, or user does not exist','error')
@@ -138,20 +136,38 @@ def logout():
 @app.route("/newpost", methods=["POST", "GET"])
 def newpost():
 
+    
+    blog_title_error= ""
+    blog_body_error= ""
+    newpost_error = ""
+    owner = User.query.filter_by(username=session['username']).first()
+
     if request.method == "POST":
         blog_title = request.form['blog_title']
         blog_body = request.form['blog_body']
-        owner = User.query.filter_by(username=session['username']).first()
-        new_blog = Blog(blog_title, blog_body, owner)
-        db.session.add(new_blog)
-        db.session.commit()
-        # get the blog id
-        the_blog = new_blog.id
-        return redirect ("/blog?id=" + str(the_blog))         
-    else:
-        return render_template("newpost.html", title="Add a Blog Entry")
 
-    return render_template("newpost.html", title="Add a Blog Entry")
+        if not blog_title:
+             blog_title_error = ("Please enter a title entry")
+             newpost_error = True
+            
+
+        if not blog_body:
+            blog_body_error = ("Please enter a blog entry")
+            newpost_error = True
+
+        if newpost_error:
+            return render_template("newpost.html",blog_title_error=blog_title_error,blog_body_error=blog_body_error)
+
+        
+        if not blog_title_error and not blog_body_error:
+            new_blog = Blog(blog_title, blog_body, owner)
+            db.session.add(new_blog)
+            db.session.commit()
+            # get the blog id
+            the_blog = new_blog.id
+            return redirect ("/blog?id=" + str(the_blog))         
+   
+    return render_template("newpost.html")
 
     
     

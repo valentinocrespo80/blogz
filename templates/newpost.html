@@ -9,16 +9,18 @@
                 <label>Title for your new blog:</label>
             </td>
             <td>
-                <input type='text' name='blog_title' />
+                <input type='text' name='blog_title' />         
             </td>
         </tr>
         <tr>
             <td>
                 <label for='blog_text'>Your new blog:</label>
             </td>
+            <p class="error">{{blog_title_error}}</p>
             <td>
                 <textarea id='blog_text' rows='4' cols='50' name='blog_body' ></textarea>
             </td>
+            <p class="error">{{blog_body_error}}</p>
         </tr>
     </table>
     <input type="submit" value="Add Entry" /> 

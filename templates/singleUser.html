@@ -13,7 +13,7 @@
         <a href="/blog?id={{blog.id}}"><li style="font-size:30px;">{{blog.title}}</li></a>  
         <li>{{blog.body}}</li>
         <hr />
-        <p>written by<li>{{blog.owner.username}}</li></p>
+        <p>written by <a href="/blog?user={{blog.owner.id}}"> <li>{{blog.owner.username}}</li></a></p>
         {% endfor %}
     </ul>
 {% endif %}
